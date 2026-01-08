@@ -1,0 +1,68 @@
+/* ========== RESPONSIVE STYLES ========== */
+
+@media (max-width: 768px) {
+    .container {
+        padding: 16px;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .dashboard-header h1 {
+        font-size: var(--font-size-2xl);
+    }
+
+    .user-info {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .form-section {
+        padding: 20px;
+    }
+
+    .form-row,
+    .form-row-triple {
+        grid-template-columns: 1fr;
+    }
+
+    .result-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .btn {
+        padding: 16px;
+        font-size: var(--font-size-md);
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 12px;
+    }
+
+    .dashboard-header h1 {
+        font-size: var(--font-size-xl);
+    }
+
+    .form-section h2 {
+        font-size: var(--font-size-lg);
+    }
+
+    .feature-name {
+        min-width: 100px;
+        font-size: var(--font-size-xs);
+    }
+
+    .feature-percent {
+        min-width: 40px;
+        font-size: var(--font-size-xs);
+    }
+
+    .auth-card {
+        padding: 20px;
+    }
+}
