@@ -502,6 +502,47 @@
         this.setState({ isLoggedIn: false, step: 'login' });
       }
 
+      calculatePredictions(skills) {
+        const normalizedSkills = {
+          score: skills.score / 8,
+          aptitude: skills.aptitude,
+          english: skills.english,
+          quantitative: skills.quantitative,
+          analytical: skills.analytical,
+          domain: skills.domain,
+          compfund: skills.compfund,
+          coding: skills.coding,
+          personality: skills.personality
+        };
+
+        const sectors = [
+          { name: 'IT Product', skills: ['coding', 'compfund', 'aptitude'], weights: [0.35, 0.30, 0.25] },
+          { name: 'KPO', skills: ['analytical', 'english', 'domain'], weights: [0.40, 0.35, 0.25] },
+          { name: 'Software Testing', skills: ['coding', 'analytical', 'compfund'], weights: [0.35, 0.35, 0.30] },
+          { name: 'IT Services', skills: ['coding', 'compfund', 'aptitude'], weights: [0.40, 0.30, 0.30] },
+          { name: 'ITES BPO', skills: ['english', 'personality', 'aptitude'], weights: [0.45, 0.35, 0.20] }
+        ];
+
+        const predictions = sectors.map(sector => {
+          let score = 0;
+          sector.skills.forEach((skill, i) => {
+            score += normalizedSkills[skill] * sector.weights[i];
+          });
+
+          const overallAvg = Object.values(normalizedSkills).reduce((a, b) => a + b, 0) / 9;
+
+          let confidence = score / 100;
+          if (overallAvg < 60) {
+            if (sector.name === 'ITES BPO') confidence = 0.90;
+            else confidence = Math.max(0.25, confidence * 0.7);
+          }
+
+          return { name: sector.name, confidence };
+        });
+
+        return predictions.sort((a, b) => b.confidence - a.confidence);
+      }
+
       setState(newState) {
         Object.assign(this.state, newState);
         this.render();
