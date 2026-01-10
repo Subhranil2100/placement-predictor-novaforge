@@ -90,7 +90,7 @@ async function predictSector(studentData) {
             personality: studentData.communication * 20
         };
 
-        const response = await fetch('http://localhost:5001/api/sector-predict', {
+        const response = await fetch('https://placement-predictor-backend-ywiz.onrender.com/api/sector-predict', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
